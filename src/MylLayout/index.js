@@ -6,7 +6,7 @@ const MyLayout = () => {
     <div>
       <ViewNavBar />
       <Outlet />
-      {/* <ViewFooter /> */}
+      <ViewFooter />
     </div>
   );
 };

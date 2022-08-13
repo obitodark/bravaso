@@ -1,56 +1,41 @@
 import { useContext, useRef } from "react";
-import Counter from "../Counter";
+
 import { ShoppingCartContext } from "../../Context";
+import { motion } from "framer-motion";
+
 const CartItens = ({ arrayShopping }) => {
-  const { arrayShoppingCarts, setArrayShoppingCarts } =
+  const { handleDeleteProduct, updateAmoutCart } =
     useContext(ShoppingCartContext);
+
+  const textNumbercart = useRef();
+
   function createDescont(price, discount) {
     return (price - price * (discount / 100)).toFixed(2);
   }
 
-  function handelonClickMax(e) {
-    console.log("Evento de spam", e.target.className);
-  }
-  const textNumberCart = useRef();
-  const getIdProductIndex = (id) => {
-    return arrayShoppingCarts.findIndex(
-      (arrayShoppingCart) => arrayShoppingCart.CartShopping.id === Number(id)
-    );
-  };
-  function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
-  }
-
-  const updateAmountProduct = () => {};
   const increaseNumber = (e) => {
-    textNumberCart.current.innerText =
-      Number(textNumberCart.current.innerText) + 1;
-    const id = e.target.className.replace("numbermax", "");
-    console.log("posicion", getIdProductIndex(id));
-    console.log("Evento de spam", e.target.className);
-    console.log("id de pro", id);
-    arrayShoppingCarts[getIdProductIndex(id)].quantity =
-      textNumberCart.current.innerText;
-    // arrayShoppingCarts.splice(items, 1);
-    // setArrayShoppingCarts([
-    //   ...arrayShoppingCarts,
-    //   {
-    //     ...arrayShoppingCarts[getIdProductIndex(id)],
-    //     quantity: textNumberCart.current.innerText,
-    //   },
-    // ]);
-    // const newarrayShoppingCarts = arrayShoppingCarts.filter(onlyUnique);
-    // setArrayShoppingCarts(newarrayShoppingCarts);
+    if (textNumbercart.current.innerText > 9) return;
+    textNumbercart.current.innerText =
+      Number(textNumbercart.current.innerText) + 1;
+    const id = e.target.className.replace("-numbermax", "");
+
+    updateAmoutCart(Number(id), textNumbercart.current.innerText);
   };
 
-  const subtractNumber = () => {
-    textNumberCart.current.innerText =
-      textNumberCart.current.innerText === "1"
-        ? (textNumberCart.current.innerText = "1")
-        : Number(textNumberCart.current.innerText) - 1;
+  const subtractNumber = (e) => {
+    if (textNumbercart.current.innerText < 2) return;
+    textNumbercart.current.innerText =
+      Number(textNumbercart.current.innerText) - 1;
+
+    const id = e.target.className.replace("-numbermin", "");
+    updateAmoutCart(Number(id), textNumbercart.current.innerText);
   };
   return (
-    <div
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -20, opacity: 0 }}
+      transition={{ duration: 0.7 }}
       id=""
       className="carBuyData my-3 p-2 w-100 d-flex justify-content-between"
     >
@@ -92,31 +77,41 @@ const CartItens = ({ arrayShopping }) => {
       <div className="  d-flex flex-column justify-content-around align-items-end">
         <div className="d-flex">
           <a>Guardar para despues</a>
-          <button className="btn border-0">
+          <button
+            className="btn btn-secundary border border-dark p-1 mx-2"
+            onClick={() =>
+              handleDeleteProduct(
+                arrayShopping.CartShopping.id,
+                arrayShopping.CartShopping.name
+              )
+            }
+          >
             <i className="bi bi-trash mx-2"></i>
           </button>
         </div>
+
+        {/* <Counter /> */}
         <div className="container_input_number">
           <span
             id="input_mim"
-            className={arrayShopping.CartShopping.id + "numbermin"}
+            className={`${arrayShopping.CartShopping.id + "-numbermin"}`}
             onClick={subtractNumber}
           >
             -
           </span>
-          <span className="${" id="input_number" ref={textNumberCart}>
+          <span className="${" id="input_number" ref={textNumbercart}>
             {arrayShopping.quantity}
           </span>
           <span
             id={"input_max"}
-            className={arrayShopping.CartShopping.id + "numbermax"}
+            className={`${arrayShopping.CartShopping.id + "-numbermax"}`}
             onClick={increaseNumber}
           >
             +
           </span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default CartItens;

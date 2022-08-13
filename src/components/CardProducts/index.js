@@ -3,7 +3,7 @@ import Products from "../Products";
 
 const CardProducts = ({ filterProduct }) => {
   return (
-    <div>
+    <div className="container_box_Product">
       {filterProduct.length === 0 ? (
         <ProductNotFound />
       ) : (

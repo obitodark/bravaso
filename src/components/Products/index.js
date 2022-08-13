@@ -1,10 +1,10 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../Context/DataProvider";
 
 const Products = ({ filterProduct }) => {
   const history = useNavigate();
-
+  const imageProdduct = useRef();
   let da = [];
 
   function createDescont(price, discount) {
@@ -34,6 +34,7 @@ const Products = ({ filterProduct }) => {
                 <img
                   src={data.image[0]}
                   className="card-img-top img_box_product"
+                  ref={imageProdduct}
                 />
               </figure>
 

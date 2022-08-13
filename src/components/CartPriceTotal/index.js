@@ -12,7 +12,7 @@ const CartPriceTotal = () => {
   }
   function gettotal() {
     arrayShoppingCarts.map((data) => {
-      numTotal = data.quantity + numTotal;
+      numTotal = Number(data.quantity) + Number(numTotal);
       priceTotal =
         priceTotal +
         (data.CartShopping.discount === 0
@@ -46,7 +46,6 @@ const CartPriceTotal = () => {
 
       <div className="d-flex justify-content-center row my-5">
         <a href="#" className="btn btn_buy_now  col-10">
-          {" "}
           Comprar
         </a>
       </div>

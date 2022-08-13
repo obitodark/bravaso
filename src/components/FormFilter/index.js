@@ -1,24 +1,28 @@
 import { useContext } from "react";
 import "./index.css";
 import { DataContext } from "../../Context/DataProvider";
+
 const FormFilter = ({ arrayBrand, orderProducts, getProductForBrand }) => {
+  let estado = false;
   const { boxListCategories } = useContext(DataContext);
+
   function handleSelectChangeBrand(e) {
     getProductForBrand(e.target.value);
     console.log("filtro de marca", e.target.value);
   }
-
-  let estado = false;
+  window.addEventListener("resize", start);
+  function start() {
+    boxListCategories.current.className = "div_list_categories";
+  }
   function handleToggleViewCategories() {
     if (!estado) {
       boxListCategories.current.className =
         "show_div_option div_list_categories";
-      boxListCategories.current.className =
-        "show_div_option div_list_categories";
+
       estado = true;
     } else {
       boxListCategories.current.className = "div_list_categories";
-      boxListCategories.current.className = "div_list_categories";
+
       estado = false;
     }
 
@@ -60,7 +64,7 @@ const FormFilter = ({ arrayBrand, orderProducts, getProductForBrand }) => {
         className="btn btn-primary"
         onClick={handleToggleViewCategories}
       >
-        <i class="bi bi-filter"></i>
+        <i className="bi bi-filter"></i>
       </button>
     </div>
   );

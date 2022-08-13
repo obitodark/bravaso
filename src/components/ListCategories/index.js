@@ -8,13 +8,12 @@ const ListCategories = ({ refrescar, getBrand }) => {
     useContext(DataContext);
 
   const renderFilterSubcategories = (e) => {
-    //  cambiarUser("nameSubcategories",e.target.innerText)
 
-    //  const datas= filterProduct.filter(data=>(data.nameSubSubcategories===e.target.innerText))
+
     refrescar(e.target.innerText, e.target.id);
     getBrand(e.target.innerText, e.target.id);
 
-    //  console.log(e.target.id,e.target.innerText)
+
 
     setDataProduct({
       ...dataProduct,

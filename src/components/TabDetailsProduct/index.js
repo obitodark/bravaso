@@ -57,7 +57,15 @@ const TabDetailsProduct = () => {
           role="tabpanel"
           aria-labelledby="nav-home-tab"
         >
-          {Productos.description}
+          <div className="container ">
+            {Productos.description.length === 0 ? (
+              <h4 className="fw-normal text-secondary">
+                Este producto todavia no tiene descripcion
+              </h4>
+            ) : (
+              Productos.description
+            )}
+          </div>
         </div>
         <div
           className="tab-pane fade pt-5"

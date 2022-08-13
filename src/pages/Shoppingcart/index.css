@@ -4,7 +4,7 @@
   background-color: white;
 }
 .addCar_product {
-  border: 1px chartreuse solid;
+  /* border: 1px chartreuse solid; */
   width: 70%;
 
   justify-content: space-between;

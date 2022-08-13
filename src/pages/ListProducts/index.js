@@ -26,13 +26,11 @@ const ListProducts = () => {
   } = useContext(DataContext);
 
   const getBrand = async (name, id) => {
-    if (name.length > 0) {
-      const data = await StoreApi.getBrand(name, id);
+    const data = await StoreApi.getBrand(name, id);
 
-      setArrrayBrand(data);
+    setArrrayBrand(data);
 
-      console.log(" array de brand", data);
-    }
+    console.log(" array de brand", data);
   };
 
   const refrescar = async (name, id) => {
@@ -63,6 +61,9 @@ const ListProducts = () => {
       setArrayFilterProducts(response);
     }
   };
+  useEffect(() => {
+    getBrand();
+  }, []);
 
   return (
     <div className="container mt-5 pt-5">

@@ -3,32 +3,42 @@ import { DataContext } from "../../Context/DataProvider";
 import Counter from "../Counter";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCartContext } from "../../Context";
+import { motion } from "framer-motion";
 const DetailsProductData = () => {
   const { dataProduct, arrayproducts } = useContext(DataContext);
   const { saveInCart } = useContext(ShoppingCartContext);
 
   const { textNumber, increaseNumber, subtractNumber } =
     useContext(ShoppingCartContext);
-
+  const history = useNavigate();
+  let da = [];
   const [Productos, setProductos] = useState(
     arrayproducts.find((arrayproduct) => arrayproduct.id === dataProduct.idPro)
   );
-
+  function createStars(number) {
+    da = [];
+    for (let i = 0; i < number; i++) {
+      da.push(i);
+    }
+  }
   function createDescont(price, discount) {
     return (price - price * (discount / 100)).toFixed(2);
   }
 
-  const history = useNavigate();
   const handleAddCart = () => {
-    saveInCart(Productos);
-    console.log("gagaagaga", Productos);
+    saveInCart(Productos, 1, dataProduct.idPro);
   };
   const handleOncClickCartBuy = () => {
     history("/shoppingcart");
   };
 
   return (
-    <div>
+    <motion.div
+      initial={{ y: 10, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -10, opacity: 0 }}
+      transition={{ duration: 0.4 }}
+    >
       <div className="datos_details">
         <div className=" d-flex my-1">
           <h5 className="text-secondary mx-1 text-uppercase">
@@ -38,7 +48,10 @@ const DetailsProductData = () => {
 
         <div className="py-2">
           <h2 className="text-capitalize">{String(Productos.name)}</h2>
-          {/* ${createStars(detailProduct.stars)} */}
+          {createStars(Productos.stars)}
+          {da.map((data, index) => (
+            <i key={index} className="bi bi-star-fill text-danger mx-1 "></i>
+          ))}
         </div>
 
         <h6
@@ -99,7 +112,7 @@ const DetailsProductData = () => {
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default DetailsProductData;

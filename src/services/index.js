@@ -1,11 +1,11 @@
-const api_Productos = "http://localhost:3000/Article";
+const api_Storeductos = "http://localhost:3000/Article";
 const api_Categories = "http://localhost:3000/Categories";
 const api_Subcategories = "http://localhost:3000/subcategories";
-const api_pro = "https://dabsejson.000webhostapp.com/datajson.json";
+const api_Store = "https://dabsejson.000webhostapp.com/datajson.json";
 
 const listProducts = async () => {
   try {
-    const response = await fetch(api_pro);
+    const response = await fetch(api_Store);
     const data = await response.json();
     return data.Article;
   } catch (error) {
@@ -15,7 +15,7 @@ const listProducts = async () => {
 
 const ListCategories = async () => {
   try {
-    const response = await fetch(api_pro);
+    const response = await fetch(api_Store);
     const data = await response.json();
     return data.categories;
   } catch (error) {
@@ -26,7 +26,7 @@ const ListCategories = async () => {
 const ListSubcategories = async () => {
   try {
     const array = [];
-    const response = await fetch(api_pro);
+    const response = await fetch(api_Store);
     const data = await response.json();
     data.subcategories.map((ga) => {
       return array.push(ga.sub);
@@ -39,7 +39,7 @@ const ListSubcategories = async () => {
 
 const getFiltroProduct = async (subcategories, idcategoria) => {
   try {
-    const response = await fetch(api_pro);
+    const response = await fetch(api_Store);
     const data = await response.json();
 
     const array = data.Article.filter(
@@ -57,7 +57,7 @@ function onlyUnique(value, index, self) {
 // const getBrandProduct= async ()=>{
 
 //     try {
-//  const response = await fetch(api_Productos);
+//  const response = await fetch(api_Storeductos);
 //   const data=await response.json();
 
 //  const  array= (data.map(data=>{return data.brand})).filter( onlyUnique );
@@ -72,8 +72,14 @@ function onlyUnique(value, index, self) {
 
 const getBrand = async (name, idcategoria) => {
   try {
-    const respose = await fetch(api_pro);
+    const respose = await fetch(api_Store);
     const data = await respose.json();
+    if (name === undefined) {
+      const arrays = data.Article.map((data) => {
+        return data.brand;
+      });
+      return arrays.filter(onlyUnique);
+    }
     const arrays = data.Article.filter(
       (data) =>
         data.nameSubSubcategories === name &&
@@ -91,9 +97,14 @@ const getBrand = async (name, idcategoria) => {
 
 const getProductForBrand = async (brand, idcategoria, namesubcategoria) => {
   try {
-    const response = await fetch(api_pro);
+    const response = await fetch(api_Store);
     const data = await response.json();
 
+    if (idcategoria === undefined || namesubcategoria === "") {
+      const arrays = data.Article.filter((array) => array.brand === brand);
+      console.log("datos undefine");
+      return arrays;
+    }
     const arrays = data.Article.filter(
       (array) =>
         array.brand === brand &&
@@ -113,7 +124,7 @@ const getProductForBrand = async (brand, idcategoria, namesubcategoria) => {
 const getOrderPrice = async (value, nombresubcategoria, idcategoria) => {
   try {
     let order = null;
-    const response = await fetch(api_pro);
+    const response = await fetch(api_Store);
     const data = await response.json();
 
     const array = data.Article.filter(
@@ -169,7 +180,7 @@ function createDescont(price, discount) {
 
 async function getSearchProduct(name) {
   try {
-    const reponse = await fetch(api_pro);
+    const reponse = await fetch(api_Store);
     const data = await reponse.json();
     const search = data.Article.filter(
       (filtro) =>

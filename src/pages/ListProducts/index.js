@@ -5,6 +5,7 @@ import {
   ViewListCategories,
   ViewFormFilter,
   ViewPagination,
+  ViewBannerImage,
 } from "../../components";
 import "./index.css";
 import { DataContext } from "../../Context/DataProvider";
@@ -66,7 +67,8 @@ const ListProducts = () => {
   }, []);
 
   return (
-    <div className="container mt-5 pt-5">
+    <div className="container mt-5 pt-5 mb-5">
+      <ViewBannerImage />
       <div className=" mt-5 container border  border-top-0 border-start-0 border-end-0">
         <h2 className="fw-normal">Lista Productos</h2>
         <h6 className="fw-normal text-secondary">

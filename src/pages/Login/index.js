@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
+import "./index.css";
 const Login = () => {
   const { login, isAuth } = useContext(AuthContext);
   const handleSubmit = (event) => {
@@ -25,7 +25,11 @@ const Login = () => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      component="main"
+      maxWidth="xs"
+      className="container-login mt-5 pt-5"
+    >
       <CssBaseline />
       <Box
         sx={{

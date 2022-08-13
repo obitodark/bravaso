@@ -11,7 +11,7 @@ const DetailsProduct = () => {
   const { dataProduct } = useContext(DataContext);
 
   return (
-    <div className="container mt-5 pt-5">
+    <div className="container mt-5 pt-5 my-5 py-5">
       <ModalDetails />
       <div id="container_details_product">
         <h2 className="fw-normal">Detalle de Producto</h2>

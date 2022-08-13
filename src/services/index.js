@@ -1,7 +1,7 @@
 const api_Storeductos = "http://localhost:3000/Article";
 const api_Categories = "http://localhost:3000/Categories";
 const api_Subcategories = "http://localhost:3000/subcategories";
-const api_Store = "https://dabsejson.000webhostapp.com/datajson.json";
+const api_Store = "https://bravaso.000webhostapp.com/data.json";
 
 const listProducts = async () => {
   try {
